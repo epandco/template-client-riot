@@ -94,7 +94,7 @@ module.exports = (env = {}) => {
     },
     plugins: [
       new CleanWebpackPlugin(),
-      ...(env.production ? [new HotModuleReplacementPlugin()] : [])
+      ...(env.production ? [] : [new HotModuleReplacementPlugin()])
     ],
     optimization: {
       minimizer: [
