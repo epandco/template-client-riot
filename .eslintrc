@@ -1,0 +1,6 @@
+{
+  "extends": "@epandco/eslint-config-typescript",
+  "ignorePatterns": [
+    "**/*.d.ts"
+  ]
+}

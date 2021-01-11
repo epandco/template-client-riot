@@ -1,0 +1,53 @@
+{
+  "name": "template-client-riot",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run watch-app\" \"npm run watch-sass\" -n webpack,sass -c cyan,magenta",
+    "watch-app": "webpack serve",
+    "watch-sass": "sass src/sass/main.scss public/css/main.css --watch",
+    "build": "npm run build-app && npm run build-sass",
+    "build-app": "webpack --env production",
+    "build-sass": "sass src/sass/main.scss public/css/main.css --style=compressed",
+    "lint": "npm run lint-app && npm run lint-sass",
+    "lint-app": "eslint \"src/**/*.{js,ts}\" --quiet --fix",
+    "lint-sass": "stylelint \"src/**/*.scss\" \"src/**/*.riot\" --fix",
+    "lint-fail": "npm run lint-app-fail && npm run lint-sass-fail",
+    "lint-app-fail": "eslint \"src/**/*.{js,ts}\" --quiet",
+    "lint-sass-fail": "stylelint \"src/sass/**/*.scss\" \"src/client/**/*.riot\""
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@epandco/eslint-config-typescript": "^1.0.1",
+    "@epandco/riot-typescript-preprocessor": "^1.2.1",
+    "@epandco/stylelint-config": "^1.0.1",
+    "@riotjs/compiler": "^5.1.3",
+    "@riotjs/hot-reload": "^5.0.0",
+    "@riotjs/webpack-loader": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.12.0",
+    "@typescript-eslint/parser": "^4.12.0",
+    "@webcomponents/template": "^1.4.4",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^3.0.0",
+    "concurrently": "^5.3.0",
+    "core-js": "^3.8.2",
+    "eslint": "^7.17.0",
+    "pre-commit": "^1.2.2",
+    "regenerator-runtime": "^0.13.7",
+    "riot": "^5.1.2",
+    "sass": "^1.32.2",
+    "strip-indent": "^3.0.0",
+    "stylelint": "^13.8.0",
+    "terser-webpack-plugin": "^5.1.1",
+    "ts-loader": "^8.0.14",
+    "typescript": "^4.1.3",
+    "webpack": "^5.12.3",
+    "webpack-cli": "^4.3.1",
+    "webpack-dev-server": "^3.11.1",
+    "whatwg-fetch": "^3.5.0"
+  },
+  "pre-commit": {
+    "run": ["lint-fail"],
+    "silent": true
+  }
+}
