@@ -1,11 +1,20 @@
 const { join } = require('path');
 const { readdirSync, existsSync } = require('fs');
 
+const { registerPreprocessor } = require('@riotjs/compiler');
+const { initRiotSassPreprocessor } = require('@epandco/riot-sass-preprocessor');
+const { initRiotTypeScriptPreprocessor } = require('@epandco/riot-typescript-preprocessor');
+
 const { HotModuleReplacementPlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 
-require('./riot-preprocessors');
+initRiotSassPreprocessor(registerPreprocessor);
+
+initRiotTypeScriptPreprocessor(registerPreprocessor, {
+  riotTypingsPath: join(__dirname, 'src', 'typings.d.ts'),
+  tsconfigPath: join(__dirname, 'tsconfig.json')
+});
 
 function getEntries() {
   const entries = {};

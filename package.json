@@ -19,6 +19,7 @@
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
     "@epandco/eslint-config-typescript": "^1.0.1",
+    "@epandco/riot-sass-preprocessor": "^1.0.0",
     "@epandco/riot-typescript-preprocessor": "^1.2.1",
     "@epandco/stylelint-config": "^1.0.1",
     "@riotjs/compiler": "^5.1.3",
@@ -36,7 +37,6 @@
     "regenerator-runtime": "^0.13.7",
     "riot": "^5.1.2",
     "sass": "^1.32.2",
-    "strip-indent": "^3.0.0",
     "stylelint": "^13.8.0",
     "terser-webpack-plugin": "^5.1.1",
     "ts-loader": "^8.0.14",
@@ -47,7 +47,9 @@
     "whatwg-fetch": "^3.5.0"
   },
   "pre-commit": {
-    "run": ["lint-fail"],
+    "run": [
+      "lint-fail"
+    ],
     "silent": true
   }
 }
