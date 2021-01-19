@@ -1,5 +1,6 @@
 const { join } = require('path');
 const { readdirSync, existsSync } = require('fs');
+const { homedir } = require('os');
 
 const { registerPreprocessor } = require('@riotjs/compiler');
 const { initRiotSassPreprocessor } = require('@epandco/riot-sass-preprocessor');
@@ -8,6 +9,18 @@ const { initRiotTypeScriptPreprocessor } = require('@epandco/riot-typescript-pre
 const { HotModuleReplacementPlugin } = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
+
+require('dotenv').config({
+  path: join(__dirname, '.env')
+});
+
+const LOCALHOST_CERT = process.env.hasOwnProperty('LOCALHOST_CERT')
+  ? process.env['LOCALHOST_CERT'].replace('~', homedir())
+  : join(homedir(), '.unthink', 'certs', 'localhost.crt');
+
+const LOCALHOST_KEY = process.env.hasOwnProperty('LOCALHOST_KEY')
+  ? process.env['LOCALHOST_KEY'].replace('~', homedir())
+  : join(homedir(), '.unthink', 'certs', 'localhost.key');
 
 initRiotSassPreprocessor(registerPreprocessor);
 
@@ -119,9 +132,13 @@ module.exports = (env = {}) => {
     },
     devServer: {
       port: 3030,
-      hot: true,
       contentBase: join(__dirname, 'public'),
       publicPath: '/js/',
+      https: {
+        cert: LOCALHOST_CERT,
+        key: LOCALHOST_KEY
+      },
+      hot: true,
       stats: 'errors-only'
     }
   }
